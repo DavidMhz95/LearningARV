@@ -219,16 +219,37 @@ body {
     transition: 300ms all;
     border: none;
     cursor: pointer;
+    text-align: center;
 }
 
 .btn-success {
     background: rgb(34, 207, 34);
 }
 
+.btn-warning {
+    background: rgb(219, 173, 23);
+    color:white !important;
+    text-decoration: none;
+}
+
+.btn-danger {
+    background: rgb(201, 21, 21);
+    color:white !important;
+    text-decoration: none;
+}
+.btn-danger,
+.btn-warning:hover{
+    transition: all 300ms ;
+    opacity: 0.8;
+}
+
 .btn-success:hover {
     background: black;
 }
-
+.buttons{
+    max-width: 200px;
+    margin-top: 30 px;
+}
 input[type="text"],
 textarea {
     width: 100%;
