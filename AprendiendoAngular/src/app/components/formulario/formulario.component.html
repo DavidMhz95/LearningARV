@@ -10,8 +10,9 @@
                 <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="user.nombre" required
                     pattern="[a-zA-Z]+" />
 
-                <small style="color: red;" *ngIf="!nombre.valid && nombre.touched">
+                <small style="color: red;" *ngIf="!nombre.valid && nombre.touched" >
                     El nombre no es válido
+                </small>
             </div>
             <div class="form-group">
                 <label for="apellidos">Apellidos</label>

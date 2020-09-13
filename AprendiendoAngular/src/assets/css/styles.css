@@ -251,6 +251,7 @@ body {
     margin-top: 30 px;
 }
 input[type="text"],
+input[type="file"],
 textarea {
     width: 100%;
     min-height: 30px;
