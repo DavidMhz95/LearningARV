@@ -3,10 +3,11 @@ var validator = require('validator');
 var fs = require('fs');
 var path = require('path');
 var Article = require('../models/article');
+const article = require('../models/article');
 
 
 var controller = {
-    datosCurso: function(req, res) {
+    datosCurso: function (req, res) {
         var hey = req.body.hola;
         return res.status(200).send({
             curso: 'Frameworks JS',
@@ -43,7 +44,13 @@ var controller = {
             //Asignar valores al objeto
             article.title = params.title;
             article.content = params.content;
-            article.image = null;
+
+            if(params.image){
+                article.image = params.image
+            }else{
+                article.image = null;
+            }
+            
 
             //Guardar
             article.save((err, articleStored) => {
@@ -252,20 +259,29 @@ var controller = {
         } else {
             //Si todo es valido
 
-            //Buscar el articulo, asignarle el nombre de la imagen y actualizar
-            Article.findOneAndUpdate({ _id: articleId }, { image: file_name }, { new: true }, (err, articleUpdated) => {
-                if (err || !articleUpdated) {
-                    return res.status(500).send({
-                        status: 'error',
-                        message: 'Error al guardar la imagen'
+            if (articleId) {
+                //Buscar el articulo, asignarle el nombre de la imagen y actualizar
+                Article.findOneAndUpdate({ _id: articleId }, { image: file_name }, { new: true }, (err, articleUpdated) => {
+                    if (err || !articleUpdated) {
+                        return res.status(500).send({
+                            status: 'error',
+                            message: 'Error al guardar la imagen'
+                        });
+                    }
+
+                    return res.status(200).send({
+                        status: 'success',
+                        article: articleUpdated
                     });
-                }
+                })
+            }else{
 
                 return res.status(200).send({
                     status: 'success',
-                    article: articleUpdated
+                    image: file_name
                 });
-            })
+            }
+
         }
     },
 
@@ -289,13 +305,13 @@ var controller = {
         //Sacar el string a buscar
         var searchString = req.params.search;
         console.log(searchString)
-            //Find or
+        //Find or
         Article.find({
-                "$or": [
-                    { "title": { "$regex": searchString, "$options": "i" } },
-                    { "content": { "$regex": searchString, "$options": "i" } }
-                ]
-            })
+            "$or": [
+                { "title": { "$regex": searchString, "$options": "i" } },
+                { "content": { "$regex": searchString, "$options": "i" } }
+            ]
+        })
             .sort([
                 ['date', 'descending']
             ])

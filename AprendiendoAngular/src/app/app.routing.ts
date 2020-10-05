@@ -12,6 +12,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { ArticleComponent } from './components/article/article.component';
 import { Search2Component } from './components/search2/search2.component';
 import { ArticleNewComponent } from './components/article-new/article-new.component';
+import { ArticleEditComponent } from './components/article-edit/article-edit.component';
 
 //Array de routas
 const appRoutes: Routes = [
@@ -20,6 +21,7 @@ const appRoutes: Routes = [
     {path: 'blog', component: BlogComponent},
     {path: 'blog/articulo/:id', component: ArticleComponent},
     {path: 'blog/crear', component: ArticleNewComponent},
+    {path: 'blog/editar/:id', component: ArticleEditComponent},
     {path: 'buscar/:search', component: Search2Component},
     {path: 'formulario', component: FormularioComponent},
     {path: 'peliculas', component: PeliculasComponent},
